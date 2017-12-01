@@ -32,6 +32,7 @@
 #include <QDirIterator>
 #include <QFileDialog>
 
+
 mxsystemsounds::mxsystemsounds(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::mxsystemsounds)
@@ -300,8 +301,23 @@ void mxsystemsounds::on_buttonAbout_clicked()
 // Help button clicked
 void mxsystemsounds::on_buttonHelp_clicked()
 {
-
-    QString cmd = QString("mx-viewer https://mxlinux.org/wiki/help-files/help-mx-system-sounds '%1'").arg(tr("MX System Sounds"));
+    QString LANG = runCmd("locale |grep LANG|cut -d '=' -f2|cut -d '_' -f1").str;
+    QHash<QString, QString> help_table;
+    help_table.insert("en","https://mxlinux.org/wiki/help-files/help-mx-sons-syst%C3%A8me" );
+    help_table.insert("ca","https://mxlinux.org/wiki/help-files/help-mx-system-sounds");
+    help_table.insert("cs","https://mxlinux.org/wiki/help-files/help-mx-system-sounds");
+    help_table.insert("de", "https://mxlinux.org/wiki/help-files/help-mx-system-sounds");
+    help_table.insert("el","https://mxlinux.org/wiki/help-files/help-mx-system-sounds");
+    help_table.insert("es","https://mxlinux.org/wiki/help-files/help-mx-system-sounds");
+    help_table.insert("fr","https://mxlinux.org/wiki/help-files/help-mx-sons-syst%C3%A8me");
+    help_table.insert("it", "https://mxlinux.org/wiki/help-files/help-mx-system-sounds");
+    help_table.insert("ja","https://mxlinux.org/wiki/help-files/help-mx-system-sounds");
+    help_table.insert("lt","https://mxlinux.org/wiki/help-files/help-mx-system-sounds");
+    help_table.insert("nl","https://mxlinux.org/wiki/help-files/help-mx-system-sounds");
+    help_table.insert("pt","https://mxlinux.org/wiki/help-files/help-mx-system-sounds");
+    help_table.insert("ru", "https://mxlinux.org/wiki/help-files/help-mx-system-sounds");
+    help_table.insert("sv", "https://mxlinux.org/wiki/help-files/help-mx-system-sounds");
+    QString cmd = QString("mx-viewer " + help_table.value(LANG) + " '%1' &").arg(tr("MX System Sounds"));
     system(cmd.toUtf8());
 
 }
